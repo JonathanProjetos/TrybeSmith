@@ -4,8 +4,8 @@ const JWT_SECRET = 'TrybeSmith';
 
 const jwtCheckUser = {
 
-  generateToken: (email: string) => {
-    const token = jwt.sign({ email }, JWT_SECRET, {
+  generateToken: (username:string, classe:string, level:number, password: string) => {
+    const token = jwt.sign({ username, classe, level, password }, JWT_SECRET, {
       expiresIn: '1d',
       algorithm: 'HS256',
     });
