@@ -9,8 +9,16 @@ class OrderModel {
   }
 
   public async getAll(): Promise<Order[]> {
-    const query = `INSERT INTO Trybesmith.Users 
-      (username, classe, level, password) VALUES (?, ?, ?, ?)`;
+    const query = `
+    SELECT 
+        o.id, o.userId, json_arrayagg(p.id) AS productsIds
+      FROM Trybesmith.Orders AS o
+      INNER JOIN Trybesmith.Products AS p
+      ON p.orderId = o.id
+      WHERE p.id 
+      GROUP BY o.id
+      ORDER BY o.userId;
+    `;
 
     const [result] = await this.connection.execute(query);
 
