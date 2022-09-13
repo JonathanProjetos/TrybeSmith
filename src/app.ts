@@ -1,12 +1,14 @@
 import express from 'express';
 import 'express-async-errors';
-import router from './router/ProductsRouter';
+import routerProducts from './router/ProductsRouter';
+import routerUser from './router/UserRouter';
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/', router);
+app.use('/', routerProducts);
+app.use('/', routerUser);
 
 app.use((
   err: Error, 
