@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import Produto from '../interfaces/IProducts';
 import ProdutosModel from '../models/ProductModel';
+import joi from '../middleware/joiValidate';
 
 class ProductsServices {
   public model: ProdutosModel;
@@ -10,7 +11,8 @@ class ProductsServices {
   }
 
   public async create(body: Produto): Promise<Produto> {
-    const result = await this.model.create(body);
+    const check = joi.validateProducts(body);
+    const result = await this.model.create(check);
     return result;
   }
 
