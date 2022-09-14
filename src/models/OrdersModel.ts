@@ -13,7 +13,7 @@ class OrderModel {
     SELECT 
         o.id, o.userId, json_arrayagg(p.id) AS productsIds
       FROM Trybesmith.Orders AS o
-      INNER JOIN Trybesmith.Products AS p
+      LEFT JOIN Trybesmith.Products AS p
       ON p.orderId = o.id
       WHERE p.id 
       GROUP BY o.id
