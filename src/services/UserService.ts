@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import User from '../interfaces/IUser';
 import UserModel from '../models/UserModel';
+import joi from '../middleware/joiValidate';
 
 class UsersServices {
   public model: UserModel;
@@ -10,7 +11,8 @@ class UsersServices {
   }
 
   public async create(body: User): Promise<User> {
-    const result = await this.model.create(body);
+    const check = joi.validateUsers(body);
+    const result = await this.model.create(check);
     return result;
   }
 }
