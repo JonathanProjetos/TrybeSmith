@@ -17,6 +17,7 @@ class OrderControllers {
     const valid = tokenVerify.validateTokenLogin(authorization as any);
   
     const object = Object.values(valid);
+    console.log('controller', object);
     
     const result = await this.service.create(object[0], body);
   

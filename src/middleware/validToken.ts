@@ -1,4 +1,4 @@
-/* import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwtToken from './token';
 
 export = {
@@ -8,4 +8,4 @@ export = {
     const dados = jwtToken.validateToken(auth as any);
     console.log(dados);
   },
-}; */
+};

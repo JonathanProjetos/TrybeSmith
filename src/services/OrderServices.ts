@@ -21,6 +21,7 @@ class OrderServices {
     
     const { productsIds } = check;
     const getUserId = await this.model.getByName(name);
+    console.log('pessoa', getUserId[0]);
     
     const createOrder = await this.model.createOrder(productsIds, getUserId[0].id);
 

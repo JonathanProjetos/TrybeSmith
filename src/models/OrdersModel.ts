@@ -39,7 +39,8 @@ class OrderModel {
     const query = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
 
     const [result] = await this.connection.execute<ResultSetHeader>(query, [id]);
-
+    console.log(result);
+    
     const { insertId } = result;
     
     productsIds.forEach(async (iten) => {
@@ -47,7 +48,7 @@ class OrderModel {
       await this.connection.execute(querySQL, [insertId, iten]);
     });
 
-    return { id: insertId, productsIds } as OrderArray;
+    return { userId: id, productsIds } as OrderArray;
   }
 }
 
