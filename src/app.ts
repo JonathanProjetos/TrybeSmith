@@ -22,7 +22,9 @@ app.use((
   _next: express.NextFunction,
 ) => {
   const [code, message] = err.message.split('|');
-  if (!err.message) {
+  console.error(err);
+  
+  if (req.statusMessage === undefined) {
     return res.status(500).json({ message: 'Error não identificado' });
   }
   return res.status(Number(code)).json({ message });

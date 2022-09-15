@@ -2,10 +2,10 @@
 import jwtToken from './token';
 
 export = {
-  Token: (req: Request, _res:Response, next:NextFunction) => {
+  Token: (req: Request, _res:Response, _next:NextFunction): any => {
     const { authorization } = req.headers;
     const auth : string | undefined = authorization;
-    const dados = jwtToken.validateToken(auth);
-    next(dados);
+    const dados = jwtToken.validateToken(auth as any);
+    console.log(dados);
   },
 }; */

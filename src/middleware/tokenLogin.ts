@@ -19,7 +19,7 @@ const jwtCheckLogin = {
       return test;
     } catch (error) {
       console.log(error);
-      throw new Error('401|Expired or invalid token');
+      throw new Error('401|Invalid token');
     }
   },
 };

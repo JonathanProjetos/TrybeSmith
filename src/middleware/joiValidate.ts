@@ -2,6 +2,7 @@ import Joi from 'joi';
 import Login from '../interfaces/ILogin';
 import Products from '../interfaces/IProducts';
 import User from '../interfaces/IUser';
+import OrderArray from '../interfaces/IOrderArray';
 
 const MESSAGE_USERNAME = '"username" is required';
 const MESSAGE_USERNAME_EMPTY = '"username" is not empty';
@@ -46,8 +47,7 @@ const validateProducts = (body: Products): Products => {
   });
 
   const { error, value } = products.validate(body);
-  console.log(error);
-  
+
   if (error) {
     throw error;
   }
@@ -87,7 +87,7 @@ const validateUsers = (body: User): User => {
   const products = Joi.object(ObjectUser);
 
   const { error, value } = products.validate(body);
-    
+
   if (error) {
     throw error;
   }
@@ -95,8 +95,28 @@ const validateUsers = (body: User): User => {
   return value;
 };
 
-export = { 
-  validateLogin, 
+const validateOrderProductsIds = (body: OrderArray): any => {
+  const Order = Joi.object({
+    productsIds: Joi.array().required().min(1).messages({
+      'array.base': '422|"productsIds" must be an array',
+      'any.required': '400|"productsIds" is required',
+      'array.min': '422|"productsIds" must include only numbers',
+    }),
+
+  });
+
+  const { error, value } = Order.validate(body);
+  // console.log(error);
+
+  if (error) {
+    throw error;
+  }
+  return value;
+};
+
+export = {
+  validateOrderProductsIds,
+  validateLogin,
   validateProducts,
   validateUsers,
 };

@@ -1,5 +1,7 @@
-import { Pool } from 'mysql2/promise';
+import { Pool, ResultSetHeader } from 'mysql2/promise';
 import Order from '../interfaces/IOrders';
+import User from '../interfaces/IUser';
+import OrderArray from '../interfaces/IOrderArray';
 
 class OrderModel {
   public connection: Pool;
@@ -23,6 +25,29 @@ class OrderModel {
     const [result] = await this.connection.execute(query);
 
     return result as Order[];
+  }
+
+  public async getByName(name:string): Promise<User[]> {
+    const query = 'SELECT * FROM Trybesmith.Users WHERE username=?';
+    const [result] = await this.connection.execute(query, [name]);
+    console.log('model', result);
+    
+    return result as User[];
+  }
+
+  public async createOrder(productsIds:number[], id:number | undefined): Promise<OrderArray> {
+    const query = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
+
+    const [result] = await this.connection.execute<ResultSetHeader>(query, [id]);
+
+    const { insertId } = result;
+    
+    productsIds.forEach(async (iten) => {
+      const querySQL = 'UPDATE Trybesmith.Products SET orderId=? WHERE id=?;';
+      await this.connection.execute(querySQL, [insertId, iten]);
+    });
+
+    return { id: insertId, productsIds } as OrderArray;
   }
 }
 
