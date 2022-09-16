@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import OrderServices from '../services/OrderServices';
-import tokenVerify from '../middleware/tokenLogin';
+import IGetUserAuthInfoRequest from '../interfaces/IGetUserAuthInfoRequest';
 
 class OrderControllers {
   constructor(private service = new OrderServices()) { }
@@ -11,15 +11,10 @@ class OrderControllers {
   };
 
   public create = async (req:Request, res: Response) => {
-    const { authorization } = req.headers;
     const { body } = req;
-    
-    const valid = tokenVerify.validateTokenLogin(authorization as any);
-  
-    const object = Object.values(valid);
-    console.log('controller', object);
-    
-    const result = await this.service.create(object[0], body);
+    const { username } = (req as IGetUserAuthInfoRequest).user;
+     
+    const result = await this.service.create(username, body);
   
     return res.status(201).json(result);
   };

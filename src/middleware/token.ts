@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import ITokenInterface from '../interfaces/IToken';
 
 const JWT_SECRET = 'TrybeSmith';
 
@@ -12,11 +13,11 @@ const jwtCheckUser = {
     return token;
   },
 
-  validateToken: (token: string) => {
+  validateToken: (token: string): ITokenInterface => {
     if (!token) throw new Error('401|Token not found');
     try { 
       const test = jwt.verify(token, JWT_SECRET);
-      return test;
+      return test as ITokenInterface;
     } catch (error) {
       console.log(error);
       throw new Error('401|Invalid token');
