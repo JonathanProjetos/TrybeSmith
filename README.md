@@ -76,7 +76,7 @@ Nesta aplicação foi desenvolvido uma API e um banco de dados, com intuito de p
  }
  
  ```
-- Se o products foi feito com sucesso, o seja os campos para products fotam preenchido corretamente. Aplicação retornará status http 201 com body.
+- Se o products foi feito com sucesso, o seja os campos para products foram preenchido corretamente. Aplicação retornará status http 201 com body.
 
 ```json
 {
@@ -90,16 +90,6 @@ Nesta aplicação foi desenvolvido uma API e um banco de dados, com intuito de p
 >Lista todos os produtos.
 
 #### Esperado
- 
- ```json
- 
- {
-  "name": "string",
-  "amount": "string"
- }
- 
- ```
-- Se o products foi feito com sucesso, o seja os campos para products fotam preenchido corretamente. Aplicação retornará status http 201 com body.
 
 ```json
  [
@@ -119,4 +109,78 @@ Nesta aplicação foi desenvolvido uma API e um banco de dados, com intuito de p
  .... 
 
 ```
+
+## Verbo Post : /orders
+>Adicionar um novo pedido.
+
+#### Esperado
+ - A rota deve receber o campo productsIds.
+ 
+ ```json
+ 
+ {
+   "productsIds": [1, 2]
+ }
+ 
+ ```
+- Se o pedido foi feito com sucesso, o seja os campos para orders foram preenchido corretamente. Aplicação retornará status http 201 com body.
+
+```json
+ {
+   "userId": 1,
+   "productsIds": [1, 2]
+ }
+
+```
+
+
+## Verbo Get : /orders
+>Lista todos os pedidos.
+
+#### Esperado
+
+```json
+
+  [
+    {
+      "id": 1,
+      "userId": 2,
+      "productsIds": [1, 2]
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "productsIds": [1, 4]
+    }
+
+ .... 
+
+```
+## Técnologias usadas
+
+> Desenvolvido em nodejs e typescript.
+
+> Framework utilizado: Express.
+
+> Libs: nodemon, eslint, express-async-errors, dotenv, joi, jsonwebtoken, mysql2
+
+## Instalando Dependências
+
+## Docker
+```
+cd TrybeSmith/
+docker-compose up -d
+docker exec -it trybesmith bash
+npm install
+npm start
+```
+## Sem o docker 
+```
+cd TrybeSmith/src/
+npm install
+npm run dev
+```
+
+## Aviso Importante 
+Caso queira roda a aplicação via docker deverá ter o docker instalado no dispositivo, caso não esteja instalado você pode encontra como instalar neste [link](https://docs.docker.com/engine/install/ubuntu/) site oficial 
 
