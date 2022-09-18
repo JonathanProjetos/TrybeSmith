@@ -171,8 +171,9 @@ Nesta aplicação foi desenvolvido uma API e um banco de dados, com intuito de p
 cd TrybeSmith/
 docker-compose up -d
 docker exec -it trybesmith bash
+cd src
 npm install
-npm start
+npm run dev
 ```
 ## Sem o docker 
 ```
@@ -182,5 +183,5 @@ npm run dev
 ```
 
 ## Aviso Importante 
-Caso queira roda a aplicação via docker deverá ter o docker instalado no dispositivo, caso não esteja instalado você pode encontra como instalar neste [link](https://docs.docker.com/engine/install/ubuntu/) site oficial 
+Caso queira roda a aplicação via docker, deverá ter o docker instalado no dispositivo, caso não esteja instalado você pode encontra como instalar neste [link](https://docs.docker.com/engine/install/ubuntu/) site oficial 
 
